@@ -1,0 +1,27 @@
+@page
+@model Pharmacies.App.IndexModel
+@{
+    ViewData["Title"] = "Batch Search";
+}
+
+<div class="search-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Batch Search</h1>
+    <p class="lead">Enter batch number or use QR code scanner</p>
+</div>
+
+<div class="container mt-5">
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">
+                <i class="fa fa-search"></i>
+            </span>
+        </div>
+        <input id="BID" class="form-control" type="text" placeholder="Batch number">
+        <div class="input-group-append">
+            <button id="Go" class="btn btn-outline-secondary" type="button">Go</button>
+            <!--button class="btn btn-outline-secondary" type="button">Scan QR Code</button-->
+        </div>
+    </div>
+
+</div>
+

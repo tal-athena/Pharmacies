@@ -1,0 +1,66 @@
+<div id="user-data" class="modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">User data</h5>
+                <button class="close" data-dismiss="modal" type="button">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="user-data-form" class="needs-validation" novalidate>
+                    <div class="mb-3 invisible d-none">
+                        <input id="Mode" class="form-control" name="Mode" type="text">
+                    </div>
+
+                    <div class="mb-3 invisible d-none">
+                        <input id="Id" class="form-control" name="Id" type="text">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="FirstName">First name</label>
+                            <input id="FirstName" class="form-control" name="FirstName" type="text">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="LastName">Last name</label>
+                            <input id="LastName" class="form-control" name="LastName" type="text" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="UserName">Username</label>
+                        <div class="input-group">
+                            <input id="UserName" class="form-control" name="UserName" type="text" placeholder="Username" required>
+                            <div class="invalid-feedback">
+                                Your username is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="NewPassword">Password</label>
+                        <input class="form-control" name="NewPassword" type="password" required>
+                        <div class="invalid-feedback">
+                            Your password is required.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Pharmacy">Pharmacy</label>
+                        <select id="Pharmacy" class="custom-select d-block w-100" name="Pharmacy" asp-items="Model.PharmacyData"></select>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <label class="custom-control custom-checkbox">
+                            <input id="IsSuper" class="custom-control-input" name="IsSuper" type="checkbox" value="true">
+                            <span class="custom-control-label" for="IsSuper">Is super user</span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="user-data-submit" class="btn btn-primary" type="button">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+

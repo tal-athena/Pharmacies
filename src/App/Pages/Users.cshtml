@@ -1,0 +1,230 @@
+@page
+@model Pharmacies.App.UsersModel
+@{
+    ViewData["Title"] = "Users";
+    Layout = "_GridLayout";
+}
+
+<partial name="_User">
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col col-sm-2">
+            <button class="btn btn-primary" data-target="#user-data" data-toggle="modal" type="button">New User</button>
+        </div>
+    </div>
+    <div id="data-grid" class="ag-theme-balham mt-2"></div>
+
+</div>
+
+<script crossorigin="anonymous"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script crossorigin="anonymous"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+<script crossorigin="anonymous"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
+
+<script>
+    function getFormData(form) {
+         var unindexed = form.serializeArray();
+           var indexed = {};
+
+        $.map(unindexed, function(n, i){
+            indexed[n["name"]] = n["value"];
+        });
+
+        return indexed;
+    }
+
+    var options = {
+        defaultColDef: {
+            resizable: true,
+            editable: false,
+            sortable: true,
+            filter: true
+        },
+        columnDefs: [
+            { headerName: "Id", field: "Id", width: 65 },
+            { headerName: "First Name", field: "FirstName" },
+            { headerName: "Last Name", field: "LastName" },
+            { headerName: "User Name", field: "UserName" },
+            { headerName: "Pharmacy", field: "Pharmacy.Name" },
+            {
+                headerName: "Super User",
+                cellRenderer: params =>
+                {
+                    if (params.value)
+                        return `<input type="checkbox" ${params.value ? "checked" : ""} disabled="disabled" />`;
+                },
+                field: "IsSuper",
+                sortable: false
+            },
+            {
+                headerName: "",
+                cellRenderer: params =>
+                {
+                    if (params.value)
+                        return `<button type="button" class="btn btn-sm btn-outline-primary edit" data-user-id="${params.value}"><i class="fa fa-pencil"></i></button>`;
+                },
+                field: "Id",
+                maxWidth: 47,
+                minWidth: 47,
+                width: 47,
+                sortable: false
+            },
+            {
+                headerName: "",
+                cellRenderer: params =>
+                {
+                    if (params.value)
+                        return `<button type="button" class="btn btn-sm btn-outline-primary del" data-user-id="${params.value}"><i class="fa fa-trash"></i></button>`;
+                },
+                field: "Id",
+                maxWidth: 47,
+                minWidth: 47,
+                width: 47,
+                sortable: false
+            }
+        ],
+        suppressCellSelection: true,
+        paginationPageSize: 18,
+        pagination: true,
+        rowHeight : 41,
+        onFirstDataRendered: function(params) {
+            params.api.sizeColumnsToFit();
+        },
+        onGridSizeChanged: function (params) {
+            params.api.sizeColumnsToFit();
+        },
+        getRowNodeId: function(data) {
+            return data.Id;
+        }
+    };
+
+    $(document).ready(function() {
+
+        // add new user or update existing
+        $("#user-data-submit").on("click", function (e) {
+            var form = $("#user-data-form");
+
+            var data = getFormData(form);
+
+            if (data.Pharmacy) {
+                data.Pharmacy = {
+                    Name: $("#Pharmacy option:selected").text(),
+                    Id: data.Pharmacy
+                };
+            }
+
+            data.IsSuper = data.IsSuper === "true";
+
+             if (data.Mode && data.Mode === "edit") {
+
+                $.ajax({
+                    url: "/api/User",
+                    type: "PATCH",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    success: function () {
+                        options.api.updateRowData({ update: [data]});
+
+                        $("#user-data").modal("hide");
+                    }
+                });
+            }
+
+            else {
+
+                data.Id = 0;
+
+                $.ajax({
+                    url: "/api/User",
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    success: function (id) {
+                        $("#user-data").modal("hide");
+
+                        data.Id = id;
+
+                        options.api.updateRowData({
+                            add: [data], addIndex: 0
+                        });
+                    }
+                });
+            }
+        }); 
+
+        // edit existing user, prepare form before show
+        $("#data-grid").on("click", ".edit", function (e) {
+            var id = $(this).data("user-id");
+
+            if (!id) {
+                return;
+            }
+
+            var node = options.api.getRowNode(id);
+
+            if (!node) {
+                return;
+            }
+
+            $("#FirstName").val(node.data.FirstName);
+            $("#LastName").val(node.data.LastName);
+            $("#UserName").val(node.data.UserName);
+            $("#IsSuper").prop("checked", node.data.IsSuper);
+
+            if (node.data.Pharmacy) {
+                $("#Pharmacy").val(node.data.Pharmacy.Id);
+            }
+
+            $("#Mode").val("edit");
+            $("#Id").val(id);
+
+            $("#user-data").modal("show"); 
+        });
+
+        // delete existing user
+        $("#data-grid").on("click", ".del", function (e) {
+            var id = $(this).data("user-id");
+
+            if (!id) {
+                return;
+            }
+
+            var node = options.api.getRowNode(id);
+
+            if (!node) {
+                return;
+            }
+
+            $.ajax({
+                url: `/api/User/${id}`,
+                type: "DELETE",
+                success: function () {
+
+                    options.api.updateRowData({ remove: [node.data]});
+                }
+            });
+        });
+
+        // reset add/edit user form on hide
+        $("#user-data").on("hidden.bs.modal", function (e) {
+            $(this).find("form").trigger("reset");
+        });
+
+        var grid = document.querySelector("#data-grid");
+        new agGrid.Grid(grid, options);
+
+        $.get("/api/User", function (data) {
+            options.api.setRowData(data);
+        });
+    });
+</script>

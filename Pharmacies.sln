@@ -1,0 +1,88 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "src\App\App.csproj", "{D75EFFF0-EB1A-42C3-A4C2-3B6A1C0F5736}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A1AE2307-7519-4A84-B98A-AB1FCBD63EB3}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".layers", ".layers", "{83ADEBA5-BDC8-4F04-B155-B656FD1653AC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "src\.layers\Models\Models.csproj", "{9799A4EE-8898-463A-95AA-04EEB953FCC7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStore", "src\.layers\DataStore\DataStore.csproj", "{A2747372-C356-4CA1-B6F0-F0EAEE9FBDBC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStore.EF", "src\.layers\DataStore.EF\DataStore.EF.csproj", "{D3020BD2-5106-4D99-9BDA-1DD8A4C0CFC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\.layers\Domain\Domain.csproj", "{B0F85500-31AC-4288-9A2A-3F665EBE5D99}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D75EFFF0-EB1A-42C3-A4C2-3B6A1C0F5736}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D75EFFF0-EB1A-42C3-A4C2-3B6A1C0F5736}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D75EFFF0-EB1A-42C3-A4C2-3B6A1C0F5736}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D75EFFF0-EB1A-42C3-A4C2-3B6A1C0F5736}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9799A4EE-8898-463A-95AA-04EEB953FCC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9799A4EE-8898-463A-95AA-04EEB953FCC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9799A4EE-8898-463A-95AA-04EEB953FCC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9799A4EE-8898-463A-95AA-04EEB953FCC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2747372-C356-4CA1-B6F0-F0EAEE9FBDBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2747372-C356-4CA1-B6F0-F0EAEE9FBDBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2747372-C356-4CA1-B6F0-F0EAEE9FBDBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2747372-C356-4CA1-B6F0-F0EAEE9FBDBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3020BD2-5106-4D99-9BDA-1DD8A4C0CFC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3020BD2-5106-4D99-9BDA-1DD8A4C0CFC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3020BD2-5106-4D99-9BDA-1DD8A4C0CFC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3020BD2-5106-4D99-9BDA-1DD8A4C0CFC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0F85500-31AC-4288-9A2A-3F665EBE5D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0F85500-31AC-4288-9A2A-3F665EBE5D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0F85500-31AC-4288-9A2A-3F665EBE5D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0F85500-31AC-4288-9A2A-3F665EBE5D99}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{83ADEBA5-BDC8-4F04-B155-B656FD1653AC} = {A1AE2307-7519-4A84-B98A-AB1FCBD63EB3}
+		{9799A4EE-8898-463A-95AA-04EEB953FCC7} = {83ADEBA5-BDC8-4F04-B155-B656FD1653AC}
+		{A2747372-C356-4CA1-B6F0-F0EAEE9FBDBC} = {83ADEBA5-BDC8-4F04-B155-B656FD1653AC}
+		{D3020BD2-5106-4D99-9BDA-1DD8A4C0CFC0} = {83ADEBA5-BDC8-4F04-B155-B656FD1653AC}
+		{B0F85500-31AC-4288-9A2A-3F665EBE5D99} = {83ADEBA5-BDC8-4F04-B155-B656FD1653AC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {67EE2C36-846E-49F3-93A4-0903B18DF76B}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://cleanit.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = src\\.layers\\DataStore.EF\\DataStore.EF.csproj
+		SccProjectTopLevelParentUniqueName1 = Pharmacies.sln
+		SccProjectName1 = src/.layers/DataStore.EF
+		SccLocalPath1 = src\\.layers\\DataStore.EF
+		SccProjectUniqueName2 = src\\.layers\\DataStore\\DataStore.csproj
+		SccProjectTopLevelParentUniqueName2 = Pharmacies.sln
+		SccProjectName2 = src/.layers/DataStore
+		SccLocalPath2 = src\\.layers\\DataStore
+		SccProjectUniqueName3 = src\\.layers\\Models\\Models.csproj
+		SccProjectTopLevelParentUniqueName3 = Pharmacies.sln
+		SccProjectName3 = src/.layers/Models
+		SccLocalPath3 = src\\.layers\\Models
+		SccProjectUniqueName4 = src\\App\\App.csproj
+		SccProjectName4 = src/App
+		SccLocalPath4 = src\\App
+		SccProjectUniqueName5 = src\\.layers\\Domain\\Domain.csproj
+		SccProjectTopLevelParentUniqueName5 = Pharmacies.sln
+		SccProjectName5 = src/.layers/Domain
+		SccLocalPath5 = src\\.layers\\Domain
+	EndGlobalSection
+EndGlobal

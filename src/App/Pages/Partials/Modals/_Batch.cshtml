@@ -1,0 +1,85 @@
+<div id="batch-data" class="modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Batch data</h5>
+                <button class="close" data-dismiss="modal" type="button">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="batch-data-form" class="needs-validation" novalidate>
+                    <div class="mb-3 invisible d-none">
+                        <input id="Mode" class="form-control" name="Mode" type="text">
+                    </div>
+
+                    <div class="mb-3 invisible d-none">
+                        <input id="id-on-data-form" class="form-control" name="Id" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ProducerName">Producer Name</label>
+                        <div class="input-group">
+                            <input id="ProducerName" class="form-control" name="ProducerName" type="text" required>
+                            <div class="invalid-feedback">
+                                Producer Name name is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ProducersBatchID">Producers Batch ID</label>
+                        <div class="input-group">
+                            <input id="ProducersBatchID" class="form-control" name="ProducersBatchID" type="text" required>
+                            <div class="invalid-feedback">
+                                Producers Batch ID is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ProductName">Product Name</label>
+                        <input id="ProductName" class="form-control" name="ProductName" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ProductType">Product Type</label>
+                        <input id="ProductType" class="form-control" name="ProductType" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Arrival">Arrival Date</label>
+                        <input id="Arrival" class="form-control" name="Arrival">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Expiery">Expiery Date</label>
+                        <input id="Expiery" class="form-control" name="Expiery">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="THC">THC</label>
+                        <input id="THC" class="form-control" name="THC" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="CBD">CBD</label>
+                        <input id="CBD" class="form-control" name="CBD" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="CBG">CBG</label>
+                        <input id="CBG" class="form-control" name="CBG" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Comments">Comments</label>
+                        <input id="Comments" class="form-control" name="Comments" type="text">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="batch-data-submit" class="btn btn-primary" type="button">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

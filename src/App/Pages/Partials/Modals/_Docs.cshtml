@@ -1,0 +1,38 @@
+<div id="batch-docs" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input id="Doc" class="custom-file-input" name="Doc" type="file">
+                        <label id="DocName" class="custom-file-label" for="Doc">Choose document</label>
+                    </div>
+                    <div class="input-group-append">
+                        <button id="batch-doc-submit" class="btn btn-outline-secondary" type="button">Upload</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form id="batch-doc-form" class="needs-validation" novalidate>
+
+                    <div class="mb-3 invisible d-none">
+                        <input id="id-on-docs-form" class="form-control" name="Id" type="text">
+                    </div>
+
+                    <!--div class="mb-3 input-group">
+                        <input type="text" class="form-control" placeholder="${name}" readonly>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary doc-delete" type="button" data-doc-id="${id}">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    </div-->
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

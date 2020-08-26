@@ -1,0 +1,405 @@
+.detail-block {
+    display: flex;
+    flex-direction: row;
+}
+
+    .detail-block .batch-detail {
+        flex: 1;
+        margin-right: 10px;
+    }
+
+    .detail-block .block-title {
+        font-size: 22px;
+        margin-bottom: 8px;
+    }
+
+    .detail-block .pharmacy-detail {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 20px;
+    }
+
+        .detail-block .pharmacy-detail .detail {
+            width: calc(100% - 120px);
+            font-size: 32px;
+            line-height: 1;
+        }
+
+            .detail-block .pharmacy-detail .detail div:first-child {
+                margin-bottom: 8px;
+            }
+
+        .detail-block .pharmacy-detail .logo {
+            width: 120px;
+            height: 120px;
+            background: #E6E6DC;
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+            .detail-block .pharmacy-detail .logo img {
+                width: 100%;
+                height: auto;
+            }
+
+    .detail-block .product-detail {
+        margin-bottom: 20px;
+    }
+
+        .detail-block .product-detail .product-block {
+            display: flex;
+        }
+
+            .detail-block .product-detail .product-block .product-card {
+                flex: 1;
+                padding: 5px 10px;
+                border: 2px solid #BCC1C9;
+                border-right: 0px;
+                position: relative;
+            }
+
+                .detail-block .product-detail .product-block .product-card:first-child {
+                    border-top-left-radius: 5px;
+                    border-bottom-left-radius: 5px;
+                }
+
+                .detail-block .product-detail .product-block .product-card:last-child {
+                    border-right: 2px solid #BCC1C9;
+                    border-top-right-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                }
+
+                .detail-block .product-detail .product-block .product-card .title {
+                    font-size: 13px;
+                    line-height: 1;
+                    margin-bottom: 8px;
+                }
+
+                .detail-block .product-detail .product-block .product-card .value {
+                    font-size: 18px;
+                    line-height: 1;
+                    margin-bottom: 15px;
+                }
+
+    .detail-block .cannabinoide-detail {
+        margin-bottom: 0px;
+    }
+
+        .detail-block .cannabinoide-detail .cannabinoide-block {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+            .detail-block .cannabinoide-detail .cannabinoide-block .cannabinoide-card {
+                flex: 1;
+                padding: 5px 10px;
+                padding-top: 10px;
+                border: 2px solid #BCC1C9;
+                margin-right: 10px;
+                border-radius: 0px 0px 10px 10px;
+                position: relative;
+                box-shadow: 0px 1px 3px 0px #BCC1C9;
+                margin-bottom: 10px;
+            }
+
+                .detail-block .cannabinoide-detail .cannabinoide-block .cannabinoide-card:last-child {
+                    margin-right: 0px;
+                }
+
+                .detail-block .cannabinoide-detail .cannabinoide-block .cannabinoide-card span {
+                    height: 8px;
+                    position: absolute;
+                    top: 0px;
+                    left: 0px;
+                    right: 0px;
+                }
+
+                .detail-block .cannabinoide-detail .cannabinoide-block .cannabinoide-card .red {
+                    background: #FF7171;
+                }
+
+                .detail-block .cannabinoide-detail .cannabinoide-block .cannabinoide-card .blue {
+                    background: #649DFF;
+                }
+
+                .detail-block .cannabinoide-detail .cannabinoide-block .cannabinoide-card .yellow {
+                    background: #DEC54E;
+                }
+
+                .detail-block .cannabinoide-detail .cannabinoide-block .cannabinoide-card .title {
+                    font-size: 20px;
+                    margin-bottom: 5px;
+                    line-height: 1;
+                }
+
+                .detail-block .cannabinoide-detail .cannabinoide-block .cannabinoide-card .value {
+                    text-align: center;
+                    font-size: 40px;
+                    line-height: 1;
+                    margin: 10px 0 20px;
+                }
+
+    .detail-block .slider-detail {
+        flex: 1;
+        border: 2px solid #979797;
+        border-radius: 10px;
+        max-height: 419px;
+        overflow: hidden;
+    }
+
+        .detail-block .slider-detail .no-image {
+            height: 100%;
+            display: flex;
+        }
+
+            .detail-block .slider-detail .no-image img {
+                margin: 0px auto;
+            }
+
+        .detail-block .slider-detail .single-image {
+            height: 100%;
+            display: flex;
+        }
+
+            .detail-block .slider-detail .single-image img {
+                margin: 0px auto;
+            }
+
+        .detail-block .slider-detail .slider-block {
+            height: 100%;
+            display: flex;
+        }
+
+            .detail-block .slider-detail .slider-block .slick-slider {
+                width: 100%;
+                margin-bottom: 0px;
+            }
+
+                .detail-block .slider-detail .slider-block .slick-slider .slick-list {
+                    height: 100%;
+                }
+
+                    .detail-block .slider-detail .slider-block .slick-slider .slick-list .slick-track {
+                        height: 100%;
+                    }
+
+                .detail-block .slider-detail .slider-block .slick-slider .slick-item {
+                }
+
+                    .detail-block .slider-detail .slider-block .slick-slider .slick-item img {
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                .detail-block .slider-detail .slider-block .slick-slider .slick-dots {
+                    bottom: 5px;
+                    line-height: 1;
+                }
+
+
+                    .detail-block .slider-detail .slider-block .slick-slider .slick-dots li button {
+                        border: 2px solid #9B9B9B;
+                        border-radius: 50%;
+                    }
+
+                        .detail-block .slider-detail .slider-block .slick-slider .slick-dots li button:before {
+                            display: none;
+                        }
+
+                    .detail-block .slider-detail .slider-block .slick-slider .slick-dots li.slick-active button {
+                        background: #9B9B9B;
+                    }
+
+.pdf-faq-block {
+    display: flex;
+    border: 2px solid #979797;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 760px;
+    margin: 0px auto;
+}
+
+    .pdf-faq-block .preview {
+        width: 220px;
+        padding: 25px;
+        border-right: 2px solid #979797;
+        background: #F0F0E6;
+        overflow: hidden;
+        position: relative;
+    }
+
+        .pdf-faq-block .preview img {
+            width: 100%;
+        }
+
+        .pdf-faq-block .preview.multiple {
+            padding-top: 30px;
+        }
+
+            .pdf-faq-block .preview.multiple img {
+                width: 140px;
+            }
+
+                .pdf-faq-block .preview.multiple img:last-child {
+                    position: absolute;
+                    left: 55px;
+                    top: 15px;
+                    width: 140px;
+                }
+
+    .pdf-faq-block .detail {
+        padding: 25px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        place-content: space-between;
+    }
+
+        .pdf-faq-block .detail .desc {
+            font-size: 32px;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+
+        .pdf-faq-block .detail .button {
+            display: flex;
+            place-content: flex-end;
+        }
+
+            .pdf-faq-block .detail .button .btn {
+                cursor: pointer;
+                width: 180px;
+                background: #2BAC70;
+                padding: 8px 15px;
+                text-align: center;
+                border-radius: 5px;
+                color: #fff;
+                font-size: 16px;
+                line-height: 1;
+            }
+
+                .pdf-faq-block .detail .button .btn:hover {
+                    background: #249661;
+                    box-shadow: 0px 0px 2px 1px #979797;
+                }
+
+.video-block {
+    background: #F0F0E6;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    margin: 0px auto;
+}
+
+    .video-block .video-desc {
+        font-size: 32px;
+        line-height: 1;
+        padding: 25px;
+        max-width: 600px;
+    }
+
+@media screen and (max-width:1024px) {
+    .detail-block {
+        flex-direction: column;
+    }
+
+        .detail-block .batch-detail {
+            margin-bottom: 30px;
+            margin-right: 0px;
+        }
+}
+
+@media screen and (max-width:767px) {
+    .detail-block .batch-detail {
+        margin-bottom: 20px;
+    }
+
+    .detail-block .block-title {
+        font-size: 20px;
+        margin-bottom: 6px;
+    }
+
+    .detail-block .pharmacy-detail {
+        margin-bottom: 15px;
+    }
+
+        .detail-block .pharmacy-detail .detail {
+            width: calc(100% - 90px);
+            font-size: 26px;
+        }
+
+        .detail-block .pharmacy-detail .logo {
+            width: 90px;
+            height: 90px;
+        }
+
+
+    .detail-block .product-detail {
+        margin-bottom: 15px;
+    }
+
+        .detail-block .product-detail .product-block .product-card {
+            padding: 5px;
+        }
+
+
+
+    .detail-block .cannabinoide-detail .cannabinoide-block .cannabinoide-card {
+        padding: 5px;
+        padding-top: 10px;
+    }
+
+
+        .detail-block .cannabinoide-detail .cannabinoide-block .cannabinoide-card .title {
+            font-size: 18px;
+        }
+
+        .detail-block .cannabinoide-detail .cannabinoide-block .cannabinoide-card .value {
+            font-size: 26px;
+            margin: 6px 0 15px;
+        }
+
+
+    .pdf-faq-block .preview {
+        width: 100px;
+        padding: 10px;
+    }
+
+        .pdf-faq-block .preview.multiple {
+            padding-top: 20px;
+        }
+
+            .pdf-faq-block .preview.multiple img {
+                width: 60px;
+            }
+
+                .pdf-faq-block .preview.multiple img:last-child {
+                    left: 25px;
+                    top: 10px;
+                    width: 60px;
+                }
+
+    .pdf-faq-block .detail {
+        padding: 10px;
+    }
+
+        .pdf-faq-block .detail .desc {
+            font-size: 20px;
+        }
+
+
+        .pdf-faq-block .detail .button .btn {
+            width: 100px;
+            padding: 6px 10px;
+            font-size: 14px;
+        }
+
+
+    .video-block .video-desc {
+        font-size: 20px;
+        padding: 10px;
+    }
+}

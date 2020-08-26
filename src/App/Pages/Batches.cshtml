@@ -1,0 +1,455 @@
+@page
+@model Pharmacies.App.BatchesModel
+@{
+    ViewData["Title"] = "Batches";
+    Layout = "_GridLayout";
+}
+
+<partial name="_QR">
+<partial name="_Batch">
+    <partial name="_Docs">
+
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div class="col col-sm-2">
+                    <button class="btn btn-primary" data-target="#batch-data" data-toggle="modal" type="button">Add Batch</button>
+                </div>
+            </div>
+            <div id="data-grid" class="ag-theme-balham mt-2"></div>
+
+        </div>
+
+        <script crossorigin="anonymous"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+        <script crossorigin="anonymous"
+                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+                src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+        <script crossorigin="anonymous"
+                integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ="
+                src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+        <script crossorigin="anonymous"
+                integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+                src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+        <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
+
+        <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js"></script>
+
+        <script>
+            function getFormData(form) {
+                var unindexed = form.serializeArray();
+                var indexed = {};
+
+                $.map(unindexed, function (n, i) {
+                    indexed[n["name"]] = n["value"];
+                });
+
+                return indexed;
+            }
+
+            function getDocInputGroup(id, file) {
+                return `<div class="mb-3 input-group doc" id="doc-${id}">
+                            <input type="text" class="form-control" placeholder="${file}" readonly>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary doc-delete" type="button" data-doc-id="${id}">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>`;
+            }
+
+            var options = {
+                defaultColDef: {
+                    resizable: true,
+                    editable: false,
+                    sortable: true,
+                    filter: true
+                },
+                columnDefs: [
+                    { headerName: "Producer Name", field: "ProducerName" },
+                    { headerName: "Batch ID", field: "ProducersBatchID" },
+                    { headerName: "Product Name", field: "ProductName" },
+                    { headerName: "Product Type", field: "ProductType" },
+                    { headerName: "THC", field: "THC", minWidth: 65, width: 65 },
+                    { headerName: "CBD", field: "CBD", minWidth: 65, width: 65 },
+                    { headerName: "CBG", field: "CBG", minWidth: 65, width: 65 },
+                    { headerName: "Arrival", field: "Arrival", minWidth: 95, width: 95 },
+                    { headerName: "Expiery", field: "Expiery", minWidth: 95, width: 95 },
+                    { headerName: "Created", field: "Created", minWidth: 95, width: 95 },
+                    {
+                        headerName: "",
+                        cellRenderer: params => {
+                            if (params.value)
+                                return `<button type="button" class="btn btn-sm btn-outline-primary qrcode" data-qr-id="${params.value}"><i class="fa fa-qrcode"></i></button>`;
+                            //return `<a class="btn btn-sm btn-outline-primary qrcode" href="/api/ScanCode/${params.value}" download="qr-${params.value}.png"><i class="fa fa-qrcode"></i></a>`;
+                        },
+                        field: "Id",
+                        maxWidth: 47,
+                        minWidth: 47,
+                        width: 47,
+                        sortable: false
+                    },
+                    {
+                        headerName: "",
+                        cellRenderer: params => {
+                            if (params.value)
+                                return `<button type="button" class="btn btn-sm btn-outline-primary upload" data-batch-id="${params.value}"><i class="fa fa-folder-open-o"></i></button>`;
+                        },
+                        field: "Id",
+                        maxWidth: 47,
+                        minWidth: 47,
+                        width: 47,
+                        sortable: false
+                    },
+                    {
+                        headerName: "",
+                        cellRenderer: params => {
+                            if (params.value)
+                                return `<button type="button" class="btn btn-sm btn-outline-primary edit" data-batch-id="${params.value}"><i class="fa fa-pencil"></i></button>`;
+                        },
+                        maxWidth: 47,
+                        field: "Id",
+                        minWidth: 47,
+                        width: 47,
+                        sortable: false
+                    },
+                    {
+                        headerName: "",
+                        cellRenderer: params => {
+                            if (params.value)
+                                return `<a target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary look" href="/page/${params.value}"><i class="fa fa-eye"></i></button>`;
+                        },
+                        field: "Id",
+                        maxWidth: 47,
+                        minWidth: 47,
+                        width: 47,
+                        sortable: false
+                    },
+                ],
+                suppressCellSelection: true,
+                paginationPageSize: 18,
+                pagination: true,
+                rowHeight: 41,
+                onFirstDataRendered: function (params) {
+                    params.api.sizeColumnsToFit();
+                },
+                onGridSizeChanged: function (params) {
+                    params.api.sizeColumnsToFit();
+                },
+                getRowNodeId: function (data) {
+                    return data.Id;
+                }
+            };
+
+            function saveBase64AsFile(base64, fileName) {
+                var link = document.createElement("a");
+
+                link.setAttribute("href", base64);
+                link.setAttribute("download", fileName);
+                link.click();
+            }
+
+            $(document).ready(function () {
+                $("#qr-image-data-submit").click(function (e) {
+                    var id = $("#id-on-qr-form").val();
+                    var form = $("#qr-data-form");
+
+                    var data = getFormData(form);
+                    data.WithBatch = data.WithBatch == "on";
+                    data.WithLogo = data.WithLogo == "on";
+                    var image = $("#qr-image");
+
+                    $.ajax({
+                        url: `/api/ScanCode/${id}`,
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(data),
+                        success: function (result) {
+                            image.html(`<img id="qr-code-img" src="data:image/png;base64, ${result}" alt="qr" />`);
+                        }
+                    });
+
+                });
+
+                $("#qr-print-data-submit").click(function (e) {
+                    var divToPrint = document.getElementById("qr-image");
+                    var form = $("#qr-data-form");
+                    var data = getFormData(form);
+                    var newWin = window.open("about:blank", "_new");
+                    if(data.WithBatch == "on" || (!!data.AdditionalText))
+                        newWin.document.write("<style>\@@page { size: 25mm 54mm; margin: 0; }</style>");
+                    else
+                        newWin.document.write("<style>\@@page { size: 25mm 25mm; margin: 0; }</style>");
+                    newWin.document.write(divToPrint.outerHTML);
+                    newWin.print();
+                    newWin.close();
+                });
+
+                $("#qr-save-data-submit").click(function (e) {
+                    var id = $("#id-on-qr-form").val();
+                    var src = $("#qr-code-img").attr('src');
+                    saveBase64AsFile(src, `qr-code-${id}.png`);
+                });
+
+                // add new batch or update existing
+                $("#batch-data-submit").on("click", function (e) {
+                    var form = $("#batch-data-form");
+
+                    var data = getFormData(form);
+
+                    if (data.Mode && data.Mode === "edit") {
+
+                        $.ajax({
+                            url: "/api/Batch",
+                            type: "PATCH",
+                            contentType: "application/json",
+                            data: JSON.stringify(data),
+                            success: function () {
+                                var node = options.api.getRowNode(data.Id);
+
+                                if (node) {
+                                    data.Documents = node.data.Documents;
+                                }
+
+                                options.api.updateRowData({ update: [data] });
+
+                                $("#batch-data").modal("hide");
+                            }
+                        });
+                    }
+
+                    else {
+
+                        data.Id = 0;
+
+                        $.ajax({
+                            url: "/api/Batch",
+                            type: "PUT",
+                            contentType: "application/json",
+                            data: JSON.stringify(data),
+                            success: function (id) {
+                                $("#batch-data").modal("hide");
+
+                                data.Created = moment().format("D.M.YYYY");
+                                data.Id = id;
+
+                                options.api.updateRowData({
+                                    add: [data], addIndex: 0
+                                });
+                            }
+                        });
+                    }
+
+                });
+
+                // attach document for batch
+                $("#batch-doc-submit").on("click", function (e) {
+
+                    var batch = $("#id-on-docs-form").val();
+
+                    var input = $("#Doc");
+
+                    var files = input.prop("files");
+
+                    if (!files || files.length == 0) {
+                        return;
+                    }
+
+                    var upload = new FormData();
+
+                    var name = files[0].name;
+
+                    upload.append("batch", batch);
+                    upload.append("files", files[0]);
+
+                    $.ajax({
+                        url: "/api/Document/",
+                        type: "POST",
+                        data: upload,
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        success: function (responce) {
+                            var html = getDocInputGroup(responce.id, name);
+
+                            var form = $("#batch-doc-form");
+
+                            form.prepend(html);
+
+                            var node = options.api.getRowNode(batch);
+
+                            if (node) {
+
+                                if (!node.data.Documents) {
+                                    node.data.Documents = [];
+                                }
+
+                                node.data.Documents.push({
+                                    Actual: name,
+                                    Id: responce.id
+                                });
+
+                                options.api.updateRowData({ update: [node.data] });
+                            }
+
+                            $("#DocName").text("Choose document");
+                        }
+                    });
+
+                    input.val(null);
+                });
+
+                // delete document from batch
+                $("#batch-doc-form").on("click", ".doc-delete", function (e) {
+                    var id = $(this).data("doc-id");
+
+                    if (!id) {
+                        return;
+                    }
+
+                    $.ajax({
+                        url: `/api/Document/${id}`,
+                        type: "DELETE",
+                        success: function () {
+
+                            var batch = $("#id-on-docs-form").val();
+
+                            var node = options.api.getRowNode(batch);
+
+                            if (node && node.data.Documents) {
+                                node.data.Documents = node.data.Documents.filter(function (doc) {
+                                    return doc.Id !== id;
+                                });
+
+                                options.api.updateRowData({ update: [node.data] });
+                            }
+
+                            $(`#doc-${id}`).remove();
+                        }
+                    });
+                });
+
+                // show documents modal
+                $("#data-grid").on("click", ".upload", function (e) {
+                    var id = $(this).data("batch-id");
+
+                    if (!id) {
+                        return;
+                    }
+
+                    var node = options.api.getRowNode(id);
+
+                    if (!node) {
+                        return;
+                    }
+
+                    var form = $("#batch-doc-form");
+
+                    $.each(node.data.Documents, function (i, doc) {
+                        var html = getDocInputGroup(doc.Id, doc.Actual);
+
+                        form.prepend(html);
+                    });
+
+                    $("#id-on-docs-form").val(id);
+
+                    $("#batch-docs").modal("show");
+                });
+
+                // show documents modal
+                $("#data-grid").on("click", ".qrcode", function (e) {
+                    var id = $(this).data("qr-id");
+
+                    if (!id) return;
+                    var image = $("#qr-image");
+
+                    $.ajax({
+                        url: `/api/ScanCode/${id}`,
+                        type: "GET",
+                        success: function (result) {
+                            image.html(`<img id="qr-code-img" src="data:image/png;base64, ${result}" alt="qr" />`);
+                        }
+                    });
+
+                    $("#id-on-qr-form").val(id);
+                    $("#qr-data").modal("show");
+                });
+
+                // edit existing batch, prepare form before show
+                $("#data-grid").on("click", ".edit", function (e) {
+                    var id = $(this).data("batch-id");
+
+                    if (!id) {
+                        return;
+                    }
+                    var node = options.api.getRowNode(id);
+
+                    if (!node) {
+                        return;
+                    }
+
+                    $("#ProducerName").val(node.data.ProducerName);
+                    $("#ProducersBatchID").val(node.data.ProducersBatchID);
+                    $("#ProductName").val(node.data.ProductName);
+                    $("#ProductType").val(node.data.ProductType);
+                    $("#Arrival").val(node.data.Arrival);
+                    $("#Expiery").val(node.data.Expiery);
+                    $("#THC").val(node.data.THC);
+                    $("#CBD").val(node.data.CBD);
+                    $("#CBG").val(node.data.CBG);
+                    $("#Comments").val(node.data.Comments);
+
+                    $("#Mode").val("edit");
+                    $("#id-on-data-form").val(id);
+
+                    $("#batch-data").modal("show");
+                });
+
+                // reset documents modal on hide
+                $("#batch-docs").on("hidden.bs.modal", function (e) {
+                    var form = $(this).find("form");
+
+                    var docs = form.find(".doc");
+
+                    docs.each(function (i, e) {
+                        e.remove();
+                    });
+
+                    form.trigger("reset");
+
+                    $("#DocName").text("Choose document");
+                });
+
+                // reset add/edit batch form on hide
+                $("#batch-data").on("hidden.bs.modal", function (e) {
+                    $(this).find("form").trigger("reset");
+                });
+
+                $("#Arrival").datepicker({
+                    uiLibrary: "bootstrap4",
+                    format: "d.m.yyyy"
+                });
+
+                $("#Expiery").datepicker({
+                    uiLibrary: "bootstrap4",
+                    format: "d.m.yyyy"
+                });
+
+                $("#Doc").change(function () {
+                    var file = $(this)[0].files[0].name;
+                    $("#DocName").text(file);
+                });
+
+                var grid = document.querySelector("#data-grid");
+                new agGrid.Grid(grid, options);
+
+                $.get("/api/Batch", function (data) {
+                    options.api.setRowData(data);
+                });
+            });
+
+        </script>

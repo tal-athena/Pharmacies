@@ -1,0 +1,176 @@
+@page "{id}"
+@model Pharmacies.App.BatchPageModel
+@{
+    ViewData["Title"] = "Batch";
+    Layout = "_Public";
+}
+
+@section HeaderPart{
+    <link rel="stylesheet" type="text/css" href="~/libs/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="~/libs/slick/slick-theme.css" />
+    <link rel="stylesheet" href="~/css/public/public.css">
+}
+
+<div class="block-section">
+    <div class="detail-block">
+        <div class="batch-detail">
+            <div class="pharmacy-detail">
+                <div class="detail">
+                    <div>@Model.PharmacyName</div>
+                    <div>@Model.ProducerName</div>
+                </div>
+                <div class="logo">
+                    <img src="@Model.Logo" alt="@Model.PharmacyName" />
+                </div>
+            </div>
+            <div class="product-detail">
+                <div class="block-title">Batch: @Model.ProducersBatchID</div>
+                <div class="product-block">
+                    <div class="product-card">
+                        <div class="title">Produkt:</div>
+                        <div class="value">@Model.ProductName</div>
+                    </div>
+                    <div class="product-card">
+                        <div class="title">Haltbarkeits Datum:</div>
+                        <div class="value">@Model.Arrival</div>
+                    </div>
+                    <div class="product-card">
+                        <div class="title">Ernte Datum: </div>
+                        <div class="value">@Model.Expiery</div>
+                    </div>
+                </div>
+            </div>
+            <div class="cannabinoide-detail">
+                <div class="block-title">Cannabinoide:</div>
+                <div class="cannabinoide-block">
+                    <div class="cannabinoide-card">
+                        <span class="red"></span>
+                        <div class="title">THC</div>
+                        <div class="value">@Model.THC</div>
+                    </div>
+                    <div class="cannabinoide-card">
+                        <span class="blue"></span>
+                        <div class="title">CBD</div>
+                        <div class="value">@Model.CBD</div>
+                    </div>
+                    <div class="cannabinoide-card">
+                        <span class="yellow"></span>
+                        <div class="title">CBG</div>
+                        <div class="value">@Model.CBG</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider-detail">
+            @if (Model.IsImagesExist)
+            {
+                @if (Model.Images.Count == 1)
+                {
+                    <div class="single-image">
+                        <img class="img-fluid rounded img" src="@Model.Images[0]">
+                    </div>
+                }
+                else
+                {
+                    <div class="slider-block">
+                        <div class="slick-slider" id="slickSlider">
+                            @for (var i = 0; i < Model.Images.Count; i++)
+                            {
+                                <div class="slick-item">
+                                    <img class="d-block rounded img" src="@Model.Images[i]">
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="no-image">
+                    <img class="img-fluid img" src="~/NoImg.svg">
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@if (Model.Documents.Count > 0)
+{
+    <div id="pdfUrls" style="display:none">
+        @foreach (var doc in Model.Documents)
+        {
+            <a href="@doc.Link" target="_blank">@doc.Name</a>
+        }
+    </div>
+    <div class="block-section">
+        <div class="pdf-faq-block pdf-section">
+            @if (Model.Documents.Count == 1)
+            {
+                <div class="preview">
+                    <img src="~/pdf.svg">
+                </div>
+            }
+            else
+            {
+                <div class="preview multiple">
+                    <img src="~/pdf.svg">
+                    <img src="~/pdf.svg">
+                </div>
+            }
+            <div class="detail">
+                <div class="desc">Cannabis Batch Zertifikat mit detaillierten Informationen.</div>
+                <div class="button">
+                    <a href="javascript:;" class="btn" id="pdfUrlOpener">ÖFFNEN</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="block-section">
+    <div class="video-block">
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/yfoY53QXEnI"></iframe>
+        </div>
+        <div class="video-desc">Das Analyse Zertifikat eines Cannabis Produkts verstehen.</div>
+    </div>
+</div>
+
+<div class="block-section">
+    <div class="pdf-faq-block faq-section">
+        <div class="preview">
+            <img src="~/faq.png">
+        </div>
+        <div class="detail">
+            <div class="desc">Alle wichtigen Begriffe erklärt</div>
+            <div class="button">
+                <a href="/faq" class="btn">ÖFFNEN</a>
+            </div>
+        </div>
+    </div>
+</div>
+@section FooterPart{
+    <script type="text/javascript" src="~/libs/slick/slick.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            if ($("#slickSlider").length) {
+                $("#slickSlider").slick({
+                    dots: true,
+                    arrows: false,
+                    autoplay: false,
+                    infinite: true,
+                    mobileFirst: true,
+                    swipeToSlide: true,
+                    fade: true,
+                    speed: 500
+                });
+            }
+
+            $("#pdfUrlOpener").click(function () {
+                $("#pdfUrls").children().each(function (i, elm) {
+                    var url = $(elm).attr("href");
+                    window.open(url);
+                })
+            })
+        });
+    </script>
+}

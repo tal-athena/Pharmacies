@@ -1,0 +1,88 @@
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.container-fluid {
+}
+
+.container {
+    max-width: 960px;
+}
+
+.search-header {
+    max-width: 700px;
+}
+
+.form-signin {
+    max-width: 330px;
+    width: 100%;
+    padding: 15px;
+    margin: auto;
+}
+
+    .form-signin .checkbox {
+        font-weight: 400;
+    }
+
+    .form-signin .form-control {
+        position: relative;
+        box-sizing: border-box;
+        height: auto;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+
+    .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+.btn:focus, .btn:active {
+    outline: none !important;
+    box-shadow: none;
+}
+
+#data-grid {
+    height: 804px;
+    width: 100%;
+    font-size: 16px;
+}
+
+.ag-row .ag-cell {
+    display: flex;
+    align-items: center;
+}
+
+.card-img-overlay:hover .btn {
+    display: inline-block;
+}
+
+.card-img-overlay .btn {
+    display: none;
+}
+
+.card-img-overlay {
+    cursor: pointer;
+}

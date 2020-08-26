@@ -1,0 +1,240 @@
+@page
+@model Pharmacies.App.PharmacyModel
+@{
+    ViewData["Title"] = "Pharmacy";
+    Layout = "_GridLayout";
+}
+
+<partial name="_Pharmacy">
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col col-sm-2">
+            <button class="btn btn-primary" data-target="#pharmacy-data" data-toggle="modal" type="button">New Pharmacy</button>
+        </div>
+    </div>
+    <div id="data-grid" class="ag-theme-balham mt-2"></div>
+
+</div>
+
+<script crossorigin="anonymous"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script crossorigin="anonymous"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+<script crossorigin="anonymous"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
+
+<script>
+    function getFormData(form) {
+         var unindexed = form.serializeArray();
+           var indexed = {};
+
+        $.map(unindexed, function(n, i){
+            indexed[n["name"]] = n["value"];
+        });
+
+        return indexed;
+    }
+
+    function uploadIcon(id, name, onSuccess) {
+        var files = $("#Icon").prop("files");
+
+        if (!files || files.length == 0) {
+            return;
+        }
+
+        var upload = new FormData();
+
+        upload.append("pharmacy", name);
+        upload.append("files", files[0]);
+
+        $.ajax({
+            url: `/api/Pharmacy/${id}`,
+            type: "POST",
+            data: upload,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (response) {
+                onSuccess(response.name);
+            }
+        });
+    }
+
+    function deleteIcon() {
+        $("#icon-upload-block").removeClass("invisible d-none");
+        $("#icon-block").addClass("invisible d-none");
+        $("#Logo").val("");
+    }
+
+    var options = {
+        defaultColDef: {
+            resizable: true,
+            editable: false,
+            sortable: true,
+            filter: true
+        },
+        columnDefs: [
+            { headerName: "Id", field: "Id", width: 65 },
+            { headerName: "Name", field: "Name" },
+            { headerName: "Address", field: "Address" },
+            { headerName: "Zip", field: "Zip" },
+            { headerName: "City", field: "City" },
+            { headerName: "Phone", field: "Phone" },
+            { headerName: "Country", field: "Country" },
+            { headerName: "Email", field: "Email" },
+            { headerName: "Contact", field: "Contact" },
+            {
+                headerName: "",
+                cellRenderer: params =>
+                {
+                    if (params.value)
+                        return `<button type="button" class="btn btn-sm btn-outline-primary edit" data-pharmacy-id="${params.value}"><i class="fa fa-pencil"></i></button>`;
+                },
+                field: "Id",
+                maxWidth: 47,
+                minWidth: 47,
+                width: 47,
+                sortable: false
+            },
+        ],
+        suppressCellSelection: true,
+        paginationPageSize: 18,
+        pagination: true,
+        rowHeight : 41,
+        onFirstDataRendered: function(params) {
+            params.api.sizeColumnsToFit();
+        },
+        onGridSizeChanged: function (params) {
+            params.api.sizeColumnsToFit();
+        },
+        getRowNodeId: function(data) {
+            return data.Id;
+        }
+    };
+
+    $(document).ready(function() {
+
+        // add new pharmacy or update existing
+        $("#pharmacy-data-submit").on("click", function (e) {
+            var form = $("#pharmacy-data-form");
+
+            var data = getFormData(form);
+
+            if (data.Mode && data.Mode === "edit") {
+
+                $.ajax({
+                    url: "/api/Pharmacy",
+                    type: "PATCH",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    success: function () {
+                        uploadIcon(data.Id, data.Name, function (file) {
+                            data.Logo = file;
+                        });
+
+                        options.api.updateRowData({ update: [data]});
+
+                        $("#pharmacy-data").modal("hide");
+                    }
+                });
+            }
+
+            else {
+
+                data.Id = 0;
+
+                $.ajax({
+                    url: "/api/Pharmacy",
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    success: function (id) {
+                        uploadIcon(id, data.Name, function (file) {
+                            data.Logo = file;
+                        });
+
+                        $("#pharmacy-data").modal("hide");
+
+                        data.Id = id;
+
+                        options.api.updateRowData({
+                            add: [data], addIndex: 0
+                        });
+                    }
+                });
+            }
+       }); 
+
+        // edit existing pharmacy, prepare form before show
+        $("#data-grid").on("click", ".edit", function (e) {
+            var id = $(this).data("pharmacy-id");
+
+            if (!id) {
+                return;
+            }
+
+            var node = options.api.getRowNode(id);
+
+            if (!node) {
+                return;
+            }
+
+            $("#Name").val(node.data.Name);
+            $("#Address").val(node.data.Address);
+            $("#Zip").val(node.data.Zip);
+            $("#City").val(node.data.City);
+            $("#Phone").val(node.data.Phone);
+            $("#Country").val(node.data.Country);
+            $("#Email").val(node.data.Email);
+            $("#Contact").val(node.data.Contact);
+
+            if (node.data.Logo) {
+                $("#icon-upload-block").addClass("invisible d-none");
+                $("#icon-block").removeClass("invisible d-none");
+
+                $("#icon-img").attr("src", `/Pharmacy/Icons/${node.data.Logo}`);
+
+                $("#Logo").val(node.data.Logo);
+            }
+
+            $("#Mode").val("edit");
+            $("#Id").val(id);
+
+            $("#pharmacy-data").modal("show"); 
+        });
+
+        // delete existing icon
+        $("#icon-delete").on("click", function (e) {
+            deleteIcon();
+        });
+
+        // reset add/edit pharmacy form on hide
+        $("#pharmacy-data").on("hidden.bs.modal", function (e) {
+            $(this).find("form").trigger("reset");
+
+            $("#IconName").text("Choose icon");
+
+            deleteIcon();
+        });
+
+        $("#Icon").change(function () {
+            var file = $(this)[0].files[0].name;
+            $("#IconName").text(file);
+        });
+
+        var grid = document.querySelector("#data-grid");
+        new agGrid.Grid(grid, options);
+
+        $.get("/api/Pharmacy", function (data) {
+            options.api.setRowData(data);
+        });
+    });
+</script>

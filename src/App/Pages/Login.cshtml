@@ -1,0 +1,19 @@
+@page
+@model Pharmacies.App.LoginModel
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="search-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Log in</h1>
+</div>
+
+<div class="container mt-5">
+    <form class="form-signin" asp-controller="Auth" asp-action="Login" method="POST">
+        <input class="form-control" name="UserName" type="text" placeholder="User name" required autofocus>
+        <input class="form-control" name="Password" type="password" placeholder="Password" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+    </form>
+
+</div>
+

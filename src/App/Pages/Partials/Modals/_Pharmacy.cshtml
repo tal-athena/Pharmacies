@@ -1,0 +1,97 @@
+<div id="pharmacy-data" class="modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pharmacy data</h5>
+                <button class="close" data-dismiss="modal" type="button">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="pharmacy-data-form" class="needs-validation" novalidate>
+                    <div class="mb-3 invisible d-none">
+                        <input id="Mode" class="form-control" name="Mode" type="text">
+                    </div>
+
+                    <div class="mb-3 invisible d-none">
+                        <input id="Logo" class="form-control" name="Logo" type="text">
+                    </div>
+
+                    <div class="mb-3 invisible d-none">
+                        <input id="Id" class="form-control" name="Id" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Name">Name</label>
+                        <div class="input-group">
+                            <input id="Name" class="form-control" name="Name" type="text" required>
+                            <div class="invalid-feedback">
+                                Pharmacy name is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Address">Address</label>
+                        <input id="Address" class="form-control" name="Address" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Zip">Zip</label>
+                        <input id="Zip" class="form-control" name="Zip" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="City">City</label>
+                        <input id="City" class="form-control" name="City" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Phone">Phone</label>
+                        <input id="Phone" class="form-control" name="Phone" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Country">Country</label>
+                        <input id="Country" class="form-control" name="Country" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Email">Email</label>
+                        <div class="input-group">
+                            <input id="Email" class="form-control" name="Email" type="email" placeholder="pharmacy@example.com">
+                            <div class="invalid-feedback">
+                                Please enter a valid email address for shipping updates.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Contact">Contact</label>
+                        <input id="Contact" class="form-control" name="Contact" type="text">
+                    </div>
+
+                    <div id="icon-upload-block" class="mb-3">
+                        <div class="custom-file">
+                            <input id="Icon" class="custom-file-input" name="Icon" type="file">
+                            <label id="IconName" class="custom-file-label" for="Icon">Choose icon</label>
+                        </div>
+                    </div>
+
+                    <div id="icon-block" class="mb-3 invisible d-none">
+                        <label for="Contact">Icon</label>
+                        <div class="card text-white" style="height:85px; width: 85px;">
+                            <img id="icon-img" class="card-img rounded" style="height:85px; width: 85px;">
+                            <div class="card-img-overlay text-center">
+                                <button id="icon-delete" class="btn btn-sm btn-primary" type="button" style="margin-top: 5px;">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="pharmacy-data-submit" class="btn btn-primary" type="button">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

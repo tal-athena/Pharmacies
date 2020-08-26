@@ -1,0 +1,86 @@
+# Suppress: EC112
+root = true
+
+[*]
+end_of_line = crlf
+charset = utf-8
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+guidelines = 29,32,120
+
+[*.{cs,vb}]
+trim_trailing_whitespace = true
+
+# Квалификаторы "This." и "Me."
+dotnet_style_qualification_for_field = true:error
+dotnet_style_qualification_for_property = true:error
+dotnet_style_qualification_for_method = true:error
+dotnet_style_qualification_for_event = true:error
+
+# Ключевые слова языка вместо имен типов .NET Framework для ссылок на типы
+dotnet_style_predefined_type_for_locals_parameters_members = true:suggestion
+dotnet_style_predefined_type_for_member_access = true:suggestion
+
+# Предпочтения для модификаторов
+dotnet_style_require_accessibility_modifiers = always:error
+csharp_preferred_modifier_order = protected,internal,private,public,static,extern,new,abstract,virtual,sealed,override,readonly,unsafe,volatile,async:warning
+# visual_basic_preferred_modifier_order = 
+dotnet_style_readonly_field = true:suggestion
+
+# Предпочтения относительно круглых скобок
+dotnet_style_parentheses_in_arithmetic_binary_operators = never_if_unnecessary:none
+dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_other_operators = never_if_unnecessary:none
+dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:suggestion
+
+# Настройки уровня выражений
+dotnet_style_object_initializer = true:suggestion
+dotnet_style_collection_initializer = true:suggestion
+dotnet_style_explicit_tuple_names = true:suggestion
+dotnet_style_prefer_inferred_tuple_names = true:suggestion
+dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
+dotnet_style_prefer_auto_properties = true:suggestion
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
+dotnet_style_prefer_conditional_expression_over_assignment = true:suggestion
+dotnet_style_prefer_conditional_expression_over_return = true:suggestion
+
+#Настройки проверки Null
+dotnet_style_coalesce_expression = true:suggestion
+dotnet_style_null_propagation = true:error
+
+# 
+# Параметры стиля кода C#
+# 
+
+#Неявные и явные типы
+csharp_style_var_for_built_in_types = true:error
+csharp_style_var_when_type_is_apparent = true:error
+csharp_style_var_elsewhere = true:error
+
+# Элементы, воплощающие выражение
+csharp_style_expression_bodied_methods = true:suggestion
+csharp_style_expression_bodied_constructors = true:suggestion
+csharp_style_expression_bodied_operators = true:suggestion
+csharp_style_expression_bodied_properties = true:suggestion
+csharp_style_expression_bodied_indexers = true:suggestion
+csharp_style_expression_bodied_accessors = true:suggestion
+
+# Сопоставление шаблонов
+csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
+csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
+
+# Встроенные объявления переменных
+csharp_style_inlined_variable_declaration = true:suggestion
+
+# Настройки уровня выражений
+csharp_prefer_simple_default_expression = true:suggestion
+csharp_style_deconstructed_variable_declaration = true:suggestion
+csharp_style_pattern_local_over_anonymous_function = true:suggestion
+
+# Настройки проверки Null
+csharp_style_throw_expression = true:suggestion
+csharp_style_conditional_delegate_call = true:error
+
+# Настройки блока кода
+csharp_prefer_braces = false:none
